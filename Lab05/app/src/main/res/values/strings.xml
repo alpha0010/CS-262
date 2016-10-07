@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Lab 5</string>
+    <string name="about_content">This is the about page for lab 5.</string>
+    <string name="about_title">Lab 5 - About</string>
+    <string name="main_content">Hello, Lab 5!</string>
+    <string name="pref_test">This is a test preference.</string>
+    <string name="pref_test_summ">This is a summary of the test preference.</string>
+    <string name="pref_stat_true">Preference: true</string>
+    <string name="pref_stat_false">Preference: false</string>
+</resources>
