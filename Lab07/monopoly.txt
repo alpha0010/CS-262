@@ -1,0 +1,7 @@
+Player(ID, emailAddress, name)
+PlayerGame(gameID, playerID, score)
+Game(ID, time)
+Property(ID, name, price)
+Turn(ID, gameID, activePlayerID)
+TurnStatus(ID, turnID, playerID, cash, location)
+OwnedProperty(ID, turnStatusID, propertyID, isMortgaged, numHouses, hasHotel)
