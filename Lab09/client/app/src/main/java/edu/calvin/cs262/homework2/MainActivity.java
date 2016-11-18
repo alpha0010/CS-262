@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -26,7 +25,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * Reads monopoly API and displays the results.
@@ -35,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText playerIdText;
 
-    private List<Player> playerList = new ArrayList<>();
+    private final List<Player> playerList = new ArrayList<>();
     private ListView itemsListView;
 
     @Override
@@ -47,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Button fetchButton = (Button) findViewById(R.id.fetchButton);
         itemsListView = (ListView) findViewById(R.id.playerListView);
 
+        assert fetchButton != null;
         fetchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,11 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 new GetPlayerTask().execute(createURL(playerIdText.getText().toString()));
             }
         });
-        playerIdText.setFilters(new InputFilter[] {new InputFilter() {
+        playerIdText.setFilters(new InputFilter[]{new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                if (source.toString().equals("0") && dstart == 0)
-                {
+                if (source.toString().equals("0") && dstart == 0) {
                     return "";
                 }
                 return null;
@@ -75,12 +73,9 @@ public class MainActivity extends AppCompatActivity {
     private URL createURL(String id) {
         try {
             String urlString;
-            if (id.isEmpty())
-            {
+            if (id.isEmpty()) {
                 urlString = getString(R.string.list_players_url);
-            }
-            else
-            {
+            } else {
                 urlString = getString(R.string.get_player_url) + id;
             }
             return new URL(urlString);
@@ -121,13 +116,10 @@ public class MainActivity extends AppCompatActivity {
                         result.append(line);
                     }
 
-                    try
-                    {
+                    try {
                         // list all players
                         return new JSONArray(result.toString());
-                    }
-                    catch (JSONException e)
-                    {
+                    } catch (JSONException e) {
                         // single player id
                         JSONArray arr = new JSONArray();
                         arr.put(new JSONObject(result.toString()));
@@ -139,7 +131,9 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                connection.disconnect();
+                if (connection != null) {
+                    connection.disconnect();
+                }
             }
             return null;
         }
@@ -159,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
      * Converts the JSON monopoly data to an arraylist suitable for a listview adapter
      *
      * @param players
+     *  List of players to be converted to a standard list
      */
     private void convertJSONtoArrayList(JSONArray players) {
         playerList.clear(); // clear old players
@@ -180,12 +175,9 @@ public class MainActivity extends AppCompatActivity {
      * Refresh the monopoly data on the ListView through a simple adapter
      */
     private void updateDisplay() {
-        if (playerList == null) {
-            Toast.makeText(MainActivity.this, getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
-        }
-        ArrayList<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> data = new ArrayList<>();
         for (Player item : playerList) {
-            HashMap<String, String> map = new HashMap<String, String>();
+            HashMap<String, String> map = new HashMap<>();
             map.put("id", item.getId());
             map.put("name", item.getName());
             map.put("email", item.getEmail());

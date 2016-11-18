@@ -11,7 +11,7 @@ public class Player {
     private int id;
     private String emailaddress, name;
 
-    Player() { /* a default constructor, required by Gson */  }
+    Player() { /* a default constructor, required by Gson */ }
 
     Player(int id, String emailaddress, String name) {
         this.id = id;
@@ -22,9 +22,11 @@ public class Player {
     public int getId() {
         return id;
     }
+
     public String getEmailaddress() {
         return emailaddress;
     }
+
     public String getName() {
         return name;
     }
@@ -32,9 +34,11 @@ public class Player {
     public void setId(int id) {
         this.id = id;
     }
+
     public void setEmailaddress(String emailaddress) {
         this.emailaddress = emailaddress;
     }
+
     public void setName(String name) {
         this.name = name;
     }

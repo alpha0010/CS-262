@@ -11,8 +11,5 @@
     <style name="normalText">
         <item name="android:textSize">20sp</item>
     </style>
-    <style name="smallText">
-        <item name="android:textSize">15sp</item>
-    </style>
 
 </resources>

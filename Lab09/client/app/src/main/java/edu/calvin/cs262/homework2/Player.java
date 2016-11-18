@@ -1,9 +1,5 @@
 package edu.calvin.cs262.homework2;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.TimeZone;
-
 /**
  * Player data holder.
  */
